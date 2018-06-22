@@ -400,7 +400,7 @@ NSString * const KILabelLinkKey = @"link";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSError *error = nil;
-        regex = [[NSRegularExpression alloc] initWithPattern:@"(?<!\\w)@([\\w\\_]+)?" options:0 error:&error];
+        regex = [[NSRegularExpression alloc] initWithPattern:@"(?<!\\w)@([\\w\\_\\-]+)?" options:0 error:&error];
     });
     
     // Run the expression and get matches
@@ -433,7 +433,9 @@ NSString * const KILabelLinkKey = @"link";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSError *error = nil;
-        regex = [[NSRegularExpression alloc] initWithPattern:@"(?<!\\w)#([\\w\\_]+)?" options:0 error:&error];
+        //  was @"(?<!\\w)#([\\w\\_]+)?" previously
+        //  changed in order to make "#one#two#three" working as 3 hashtags
+        regex = [[NSRegularExpression alloc] initWithPattern:@"#([\\w\\_]+)?" options:0 error:&error];
     });
     
     // Run the expression and get matches
